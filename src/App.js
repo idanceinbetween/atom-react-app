@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchPosts, catchError } from './actions'
-// import * as actions from '../actions';
 
 import PostsContainer from './posts/PostsContainer'
 import StatsContainer from './stats/StatsContainer'
@@ -13,13 +12,13 @@ class App extends Component {
   }
 
   render() {
-    const { posts, error } = this.props
+    const { posts, error, catchError } = this.props
 
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>AtomInvest Sample Blog</h1>
         <StatsContainer posts={posts} />
-        <PostsContainer posts={posts} error={error} />
+        <PostsContainer posts={posts} error={error} catchError={catchError} />
       </div>
     )
   }

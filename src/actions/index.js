@@ -1,6 +1,6 @@
 import { REQUEST_POSTS, RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './types'
 
-const API = 'https://jsonplaceholder.typicode.com/'
+const API = 'https://jsonplaceholder.typicode.com/posts'
 
 export function requestPosts() {
   return { type: REQUEST_POSTS }
@@ -15,11 +15,10 @@ export function fetchPosts() {
     dispatch(requestPosts())
     return fetch(API)
       .then(resp => resp.json())
+      .then(data => dispatch(receivePosts(data)))
       .catch(error => {
-        console.log('An error occurred caught:', error)
         dispatch(catchError(error))
       })
-    //   .then(data => dispatch(receivePosts(data)))
   }
 }
 
