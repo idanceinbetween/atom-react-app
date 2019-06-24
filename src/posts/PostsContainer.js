@@ -1,13 +1,9 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
-
+import React, { Component } from 'react'
 import SinglePost from './SinglePost'
 
 class PostsContainer extends Component {
-  state = {}
   render() {
-    if (Object.keys(this.props.data).length > 0) {
+    if (this.props.posts) {
       return (
         <div
           className='ui fluid container'
@@ -19,7 +15,7 @@ class PostsContainer extends Component {
         >
           <h2>Posts</h2>
           <div className='ui centered cards'>
-            {this.props.data.map(post => (
+            {this.props.posts.map(post => (
               <SinglePost post={post} key={post.id} />
             ))}
           </div>
@@ -31,12 +27,4 @@ class PostsContainer extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   museumFilter: state.museumFilter
-// })
-
-export default connect(
-  null,
-  //   mapStateToProps,
-  actions
-)(PostsContainer)
+export default PostsContainer

@@ -1,22 +1,32 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { deletePost } from '../actions'
 
-const SinglePost = ({ post }) => {
+const SinglePost = ({ post, deletePost }) => {
   return (
     <div className='ui card'>
       <div className='content'>
         <div className='header'>{post.title}</div>
         <div className='meta'>
-          Post id: {post.id} | Author ID: {post.userId}
+          Post ID: {post.id} by author (ID): {post.userId}
         </div>
         <div className='description'>{post.body}</div>
       </div>
-      <div class='extra content'>
-        <div class='ui buttons'>
-          <button class='ui red basic button'>Delete</button>
+      <div className='extra content'>
+        <div className='ui buttons'>
+          <button
+            className='ui red basic button'
+            onClick={() => deletePost(post.id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
   )
 }
 
-export default SinglePost
+export default connect(
+  null,
+  { deletePost: deletePost }
+)(SinglePost)
