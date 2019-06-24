@@ -8,8 +8,6 @@ class PostsContainer extends Component {
         <div
           className='ui fluid container'
           style={{
-            //   borderStyle: 'solid',
-            //   borderColor: 'blue',
             padding: '15px'
           }}
         >

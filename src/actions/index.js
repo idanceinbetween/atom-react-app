@@ -18,6 +18,7 @@ export function fetchPosts() {
         resp => resp.json(),
         error => console.log('An error occurred:', error)
       )
+      .catch(error => console.log('An error occurred:', error))
       .then(data => dispatch(receivePosts(data)))
   }
 }
