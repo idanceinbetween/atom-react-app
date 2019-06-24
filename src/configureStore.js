@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
-import postsReducer from './reducers'
+import rootReducer from './reducers'
 import thunk from 'redux-thunk'
 
 const configureStore = () => {
-  return createStore(postsReducer, applyMiddleware(thunk))
+  return createStore(rootReducer, applyMiddleware(thunk))
 }
 export default configureStore

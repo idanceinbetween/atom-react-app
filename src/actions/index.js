@@ -1,4 +1,4 @@
-import { REQUEST_POSTS, RECEIVE_POSTS, DELETE_POST } from './types'
+import { REQUEST_POSTS, RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './types'
 
 const API = 'https://jsonplaceholder.typicode.com/'
 
@@ -14,15 +14,19 @@ export function fetchPosts() {
   return function(dispatch) {
     dispatch(requestPosts())
     return fetch(API)
-      .then(
-        resp => resp.json(),
-        error => console.log('An error occurred:', error)
-      )
-      .catch(error => console.log('An error occurred:', error))
-      .then(data => dispatch(receivePosts(data)))
+      .then(resp => resp.json())
+      .catch(error => {
+        console.log('An error occurred caught:', error)
+        dispatch(catchError(error))
+      })
+    //   .then(data => dispatch(receivePosts(data)))
   }
 }
 
 export function deletePost(id) {
   return { type: DELETE_POST, id }
+}
+
+export function catchError(error) {
+  return { type: CATCH_ERROR, error }
 }
