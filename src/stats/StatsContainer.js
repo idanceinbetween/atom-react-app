@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
 
 const allPostsBodyArray = posts => posts.map(p => p.body)
 const sentencesOfAPost = post => post.split('\n')
@@ -75,7 +74,8 @@ const StatsContainer = ({ posts }) => {
   )
 }
 
-export default connect(
-  null,
-  actions
-)(StatsContainer)
+const mapStateToProps = ({ posts }) => ({
+  posts
+})
+
+export default connect(mapStateToProps)(StatsContainer)

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import { fetchPosts, catchError } from './actions'
+import { fetchPosts } from './actions'
 
 import PostsContainer from './posts/PostsContainer'
 import StatsContainer from './stats/StatsContainer'
@@ -12,24 +11,22 @@ class App extends Component {
   }
 
   render() {
-    const { posts, error, catchError } = this.props
-
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>AtomInvest Sample Blog</h1>
-        <StatsContainer posts={posts} />
-        <PostsContainer posts={posts} error={error} catchError={catchError} />
+        <StatsContainer />
+        <PostsContainer />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ posts = [], error = null }) => ({
+const mapStateToProps = ({ posts, error }) => ({
   posts,
   error
 })
 
 export default connect(
   mapStateToProps,
-  { fetchPosts, catchError }
+  { fetchPosts }
 )(App)

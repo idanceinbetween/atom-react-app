@@ -1,10 +1,11 @@
-import { REQUEST_POSTS, RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './types'
+// import { REQUEST_POSTS, RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './types'
+import { RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './types'
 
 const API = 'https://jsonplaceholder.typicode.com/posts'
 
-export function requestPosts() {
-  return { type: REQUEST_POSTS }
-}
+// export function requestPosts() {
+//   return { type: REQUEST_POSTS }
+// }
 
 export function receivePosts(data) {
   return { type: RECEIVE_POSTS, payload: data }
@@ -12,7 +13,7 @@ export function receivePosts(data) {
 
 export function fetchPosts() {
   return function(dispatch) {
-    dispatch(requestPosts())
+    // dispatch(requestPosts())
     return fetch(API)
       .then(resp => resp.json())
       .then(data => dispatch(receivePosts(data)))

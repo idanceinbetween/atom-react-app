@@ -1,6 +1,9 @@
 import React from 'react'
 import SinglePost from './SinglePost'
 
+import { connect } from 'react-redux'
+import { fetchPosts, catchError } from '../actions'
+
 const checkObjectKey = posts => {
   const attributes = ['id', 'userId', 'title', 'body']
   const values = posts
@@ -54,4 +57,14 @@ const PostsContainer = ({ posts, error, catchError }) => {
   }
 }
 
-export default PostsContainer
+const mapStateToProps = ({ posts, error }) => ({
+  posts,
+  error
+})
+
+export default connect(
+  mapStateToProps,
+  { fetchPosts, catchError }
+)(PostsContainer)
+
+// export default PostsContainer

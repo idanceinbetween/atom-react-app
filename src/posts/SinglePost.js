@@ -28,5 +28,5 @@ const SinglePost = ({ post, deletePost }) => {
 
 export default connect(
   null,
-  { deletePost: deletePost }
+  { deletePost }
 )(SinglePost)
