@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_POSTS, DELETE_POST, CATCH_ERROR } from './actions/types'
+import {
+  RECEIVE_POSTS,
+  DELETE_POST,
+  CATCH_ERROR,
+  FILTER_WORD
+} from './actions/types'
 
 const postsReducer = (state = [], action) => {
   switch (action.type) {
@@ -21,9 +26,19 @@ const errorReducer = (state = null, action) => {
   }
 }
 
+const filterReducer = (state = '', action) => {
+  switch (action.type) {
+    case FILTER_WORD:
+      return action.word
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   posts: postsReducer,
-  error: errorReducer
+  error: errorReducer,
+  filter: filterReducer
 })
 
 export default rootReducer

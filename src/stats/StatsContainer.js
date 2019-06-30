@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Filter from './Filter'
 
 const allPostsBodyArray = posts => posts.map(p => p.body)
 const sentencesOfAPost = post => post.split('\n')
@@ -47,7 +48,12 @@ const top5words = uniqueWordCountPairs => {
   return top5words
 }
 
-const StatsContainer = ({ posts }) => {
+const filterPosts = (posts, filter) =>
+  filter !== ''
+    ? posts.filter(post => post.body.split(' ').includes(filter))
+    : posts
+
+const StatsContainer = ({ posts, filter }) => {
   return (
     <div className='ui fluid container'>
       <h2>Statistics</h2>
@@ -58,14 +64,19 @@ const StatsContainer = ({ posts }) => {
             <h2>Total Word Count</h2>
             <p style={{ color: '#666666' }}>across all the posts body</p>
             <h3>{countTotalWords(posts)}</h3>
+            <p style={{ color: '#666666' }}>
+              across currently showing posts body
+            </p>
+            <h3>{countTotalWords(filterPosts(posts, filter))}</h3>
           </div>
           <div className='column'>
             <h2>Top Five Frequent Words</h2>
-            {top5words(uniqueWordCountPairs(allWords(posts)))
-              .splice(0, 5)
-              .map(word => (
-                <p key={word}>{word}</p>
-              ))}
+            <Filter
+              words={top5words(uniqueWordCountPairs(allWords(posts))).splice(
+                0,
+                5
+              )}
+            />
           </div>
         </div>
         <div className='ui vertical divider'>o o o</div>
@@ -74,8 +85,9 @@ const StatsContainer = ({ posts }) => {
   )
 }
 
-const mapStateToProps = ({ posts }) => ({
-  posts
+const mapStateToProps = ({ posts, filter }) => ({
+  posts,
+  filter
 })
 
 export default connect(mapStateToProps)(StatsContainer)

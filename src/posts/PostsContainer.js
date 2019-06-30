@@ -26,7 +26,21 @@ const renderObjectKeyError = catchError => {
 const objectKeyError =
   'Individual posts cannot be rendered due to mismatched object keys. Please contact administrator.'
 
-const PostsContainer = ({ posts, error, catchError }) => {
+const renderFilteredPosts = (posts, filterWord) => {
+  const filteredPosts = posts.filter(post =>
+    post.body.split(' ').includes(filterWord)
+  )
+
+  return (
+    <div className='ui centered cards'>
+      {filteredPosts.map(post => (
+        <SinglePost post={post} key={post.id} />
+      ))}
+    </div>
+  )
+}
+
+const PostsContainer = ({ posts, error, filter, catchError }) => {
   if (posts) {
     return (
       <div
@@ -36,6 +50,7 @@ const PostsContainer = ({ posts, error, catchError }) => {
         }}
       >
         <h2>Posts</h2>
+        {posts && filter && renderFilteredPosts(posts, filter)}
         {posts && checkObjectKey(posts) && (
           <div className='ui centered cards'>
             {posts.map(post => (
@@ -57,9 +72,10 @@ const PostsContainer = ({ posts, error, catchError }) => {
   }
 }
 
-const mapStateToProps = ({ posts, error }) => ({
+const mapStateToProps = ({ posts, error, filter }) => ({
   posts,
-  error
+  error,
+  filter
 })
 
 export default connect(

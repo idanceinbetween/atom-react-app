@@ -27,6 +27,7 @@ const mapStateToProps = ({ posts, error }) => ({
 })
 
 export default connect(
+  // null,
   mapStateToProps,
   { fetchPosts }
 )(App)
